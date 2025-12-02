@@ -3,7 +3,7 @@ using TodoApi; // מביא את הקלאסים Item ו-ToDoDbContext שנוצר�
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ------------------- הזרקת DbContext -------------------
+// ------------------- הגדרת DbContext -------------------
 builder.Services.AddDbContext<ToDoDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("ToDoDB"),
@@ -30,20 +30,26 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// הפעלת Swagger רק ב-Development
+// ------------------- הפעלת Swagger ב-Development -------------------
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// --------------------------------------------------------------------
 
 // הפעלת CORS
 app.UseCors();
 
+// ------------------- מאזין לפורט דינמי (חשוב ל-Render) -------------------
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://*:{port}");
+// -------------------------------------------------------------------------
+
 // Route בסיסי
 app.MapGet("/", () => "Hello World!");
 
-// ------------------- ROUTES CRUD ל-ToDo -------------------
+// ------------------- CRUD API ל-ToDo -------------------
 
 // שליפת כל המשימות
 app.MapGet("/tasks", async (ToDoDbContext context) =>
@@ -81,6 +87,6 @@ app.MapDelete("/tasks/{id}", async (int id, ToDoDbContext context) =>
     await context.SaveChangesAsync();
     return Results.NoContent();
 });
-// -------------------------------------------------------
+// -------------------------------------------------------------------------
 
 app.Run();
