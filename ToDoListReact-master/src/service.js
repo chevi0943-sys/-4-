@@ -1,4 +1,4 @@
-const API_URL = `${process.env.REACT_APP_API_URL}/tasks`; // הנתיב מתאים ל־backend בענן
+const API_URL = "http://localhost:5127/tasks"; // הנתיב מתאים ל־backend בענן
 
 async function getTodos() {
   const response = await fetch(API_URL);
