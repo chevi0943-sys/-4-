@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Node.js / React
 ToDoListReact-master/node_modules/
 ToDoListReact-master/build/
@@ -11,3 +12,18 @@ TodoApi/obj/
 *.suo
 *.DS_Store
 .vs/
+=======
+# Node.js / React
+ToDoListReact-master/node_modules/
+ToDoListReact-master/build/
+
+# .NET
+TodoApi/bin/
+TodoApi/obj/
+
+# OS / IDE
+*.user
+*.suo
+*.DS_Store
+.vs/
+>>>>>>> e99f08b58d3968ede4f15fab13058a4786168856
